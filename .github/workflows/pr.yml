@@ -11,8 +11,9 @@ permissions:
 jobs:
   scan-sast:
     name: Scan SAST
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-sast.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
+    uses: Avodah-Inc/github-actions/.github/workflows/pr-scan-sast.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
     permissions:
+      actions: read
       checks: write
       contents: read
     secrets:
@@ -21,14 +22,14 @@ jobs:
 
   scan-sca:
     name: Scan SCA
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-sca.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
+    uses: Avodah-Inc/github-actions/.github/workflows/pr-scan-sca.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
     permissions:
       checks: write
       contents: read
 
   scan-secrets:
     name: Scan Secrets
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-secrets.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
+    uses: Avodah-Inc/github-actions/.github/workflows/scan-secrets.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
     permissions:
       checks: write
       contents: read
