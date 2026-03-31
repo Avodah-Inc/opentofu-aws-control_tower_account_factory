@@ -11,24 +11,31 @@ permissions:
 jobs:
   scan-sast:
     name: Scan SAST
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-sast.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
+    uses: Avodah-Inc/github-actions/.github/workflows/scan-sast.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
+    permissions:
+      actions: read
+      checks: write
+      contents: read
+    secrets:
+      GH_TOKEN: ${{ secrets.OPENTOFU_GH_TOKEN }}
+      LINEAR_CLIENT_ID: ${{ secrets.LINEAR_CLIENT_ID }}
+      LINEAR_CLIENT_SECRET: ${{ secrets.LINEAR_CLIENT_SECRET }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  scan-sca:
+    name: Scan SCA
+    uses: Avodah-Inc/github-actions/.github/workflows/scan-sca.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
     permissions:
       checks: write
       contents: read
     secrets:
       GH_TOKEN: ${{ secrets.OPENTOFU_GH_TOKEN }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-  scan-sca:
-    name: Scan SCA
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-sca.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
-    permissions:
-      checks: write
-      contents: read
+      LINEAR_CLIENT_ID: ${{ secrets.LINEAR_CLIENT_ID }}
+      LINEAR_CLIENT_SECRET: ${{ secrets.LINEAR_CLIENT_SECRET }}
 
   scan-secrets:
     name: Scan Secrets
-    uses: Avodah-Inc/github-actions/.github/workflows/scan-secrets.yml@c3810d33d35f4469cc222e98bf83fc9ddcc34d9b # 1.0.0
+    uses: Avodah-Inc/github-actions/.github/workflows/scan-secrets.yml@7a11234f8530d810e1ad04b67cd809dca6e316ae # 4.12.0
     permissions:
       checks: write
       contents: read
