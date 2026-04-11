@@ -85,7 +85,7 @@ def build_sqs_message(record: Dict[str, Any], new_account: bool) -> Dict[str, An
         old_image = ddb.unmarshal_ddb_item(record["dynamodb"]["OldImage"])
         message["old_control_tower_parameters"] = old_image["control_tower_parameters"]
 
-    logger.info(message)
+    logger.info(utils.sanitize_input_for_logging(message))
     return message
 
 
@@ -97,7 +97,7 @@ def build_aft_account_provisioning_framework_event(
         "account_request": account_request,
         "control_tower_event": {},
     }
-    logger.info(aft_account_provisioning_framework_event)
+    logger.info(utils.sanitize_input_for_logging(aft_account_provisioning_framework_event))
     return aft_account_provisioning_framework_event
 
 
@@ -110,7 +110,7 @@ def put_audit_record(
     current_time = datetime.now().strftime(datetime_format)
     item["timestamp"] = {"S": current_time}
     item["ddb_event_name"] = {"S": event_name}
-    logger.info("Inserting item into " + table + " table: " + str(item))
+    logger.info("Inserting item into " + utils.sanitize_input_for_logging(table) + " table: " + utils.sanitize_input_for_logging(item))
     response = dynamodb.put_item(TableName=table, Item=item)
     sanitized_response = utils.sanitize_input_for_logging(response)
     logger.info(sanitized_response)
@@ -450,7 +450,7 @@ class AccountRequest:
         for product in provisioned_products:
             if product["ProductId"] != self.account_factory_product_id:
                 continue
-            logger.info("Identified CT Product - " + product["Id"])
+            logger.info("Identified CT Product - " + utils.sanitize_input_for_logging(product["Id"]))
             if product["Status"] in ["UNDER_CHANGE", "PLAN_IN_PROGRESS"]:
                 in_progress_count += 1
 
